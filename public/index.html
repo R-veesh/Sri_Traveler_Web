@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trip Details</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Trip Details</h1>
+            <button id="addTripBtn" class="btn primary">
+                <span class="icon">+</span> Add New Trip
+            </button>
+        </header>
+
+        <!-- Add Trip Form -->
+        <div id="addTripForm" class="form-container hidden">
+            <div class="form-card">
+                <h2>Add New Trip</h2>
+                <form id="tripForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="tripName">Trip Name</label>
+                            <input type="text" id="tripName" name="tripName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tripCode">Trip Code</label>
+                            <input type="text" id="tripCode" name="tripCode" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tripPlace">Trip Place</label>
+                            <input type="text" id="tripPlace" name="tripPlace" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tripPrice">Trip Price</label>
+                            <input type="text" id="tripPrice" name="tripPrice" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="tripImagePath">Image Path</label>
+                            <input type="text" id="tripImagePath" name="tripImagePath" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="tripDescription">Description</label>
+                        <textarea id="tripDescription" name="tripDescription" rows="4" required></textarea>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn primary">Save Trip</button>
+                        <button type="button" id="cancelBtn" class="btn secondary">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <!-- Loading Indicator -->
+        <div id="loadingIndicator" class="loading">
+            <div class="spinner"></div>
+        </div>
+
+        <!-- Trip Cards Container -->
+        <div id="tripsContainer" class="trips-grid"></div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
