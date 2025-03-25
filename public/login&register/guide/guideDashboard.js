@@ -1,28 +1,24 @@
-// Import Firebase SDK
-import firebase from "firebase/app"
-import "firebase/auth"
-import "firebase/firestore"
-import "firebase/storage"
 
-// Firebase configuration
+// Firebase configuration 
 const firebaseConfig = {
   apiKey: "AIzaSyAqLxHtBeS8QfEJfZFuaD4wsC45I2xJFDc",
   authDomain: "sri-traveler.firebaseapp.com",
-  databaseURL: "https://sri-traveler-default-rtdb.asia-southeast1.firebasedatabase.app",
   projectId: "sri-traveler",
   storageBucket: "sri-traveler.firebasestorage.app",
   messagingSenderId: "996309776080",
   appId: "1:996309776080:web:21135debfdaca5e3c850d5",
-  measurementId: "G-0X037JT8RT"
-}
+};
 
 // Initialize Firebase
 try {
-  firebase.initializeApp(firebaseConfig)
-  console.log("Firebase initialized successfully")
+  firebase.initializeApp(firebaseConfig);
+  console.log("Firebase initialized successfully");
 } catch (e) {
-  console.error("Firebase initialization error:", e.message)
-  alert(`Firebase initialization error: ${e.message}`)
+  console.error("Firebase initialization error:", e.message);
+  document.getElementById(
+    "errorMessage"
+  ).textContent = `Firebase initialization error: ${e.message}`;
+  document.getElementById("errorMessage").classList.remove("hidden");
 }
 
 // Initialize Firebase services
