@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - Sri Traveller</title>
+    <link rel="stylesheet" href="admin.css">
+</head>
+<body>
+    <div class="sidebar">
+        <h2>Admin Panel</h2>
+        <a href="#">Dashboard</a>
+        <a href="#">Manage Users</a>
+        <a href="#">Manage Guides</a>
+        <a href="#">Bookings</a>
+        <a href="#">Reports</a>
+        <a href="#">Settings</a>
+    </div>
+
+    <div class="main-content">
+        <h1>Dashboard Overview</h1>
+        <div class="dashboard-cards">
+            <div class="card">
+                <h2>250</h2>
+                <p>Total Users</p>
+            </div>
+            <div class="card">
+                <h2>120</h2>
+                <p>Active Bookings</p>
+            </div>
+            <div class="card">
+                <h2>$12,500</h2>
+                <p>Total Revenue</p>
+            </div>
+        </div>
+        
+        <h2>User Management</h2>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+            <tr>
+                <td>001</td>
+                <td>John Doe</td>
+                <td>Traveler</td>
+                <td>Active</td>
+                <td><button>Remove</button></td>
+            </tr>
+            <tr>
+                <td>002</td>
+                <td>Jane Smith</td>
+                <td>Guide</td>
+                <td>Pending</td>
+                <td><button>Approve</button></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>

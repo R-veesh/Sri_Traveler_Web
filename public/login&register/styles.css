@@ -8,6 +8,7 @@
   --border-color: #e0e0e0;
   --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   --transition: all 0.3s ease;
+  --error-color: #e53e3e;
 }
 
 * {
@@ -28,19 +29,6 @@ body {
   max-width: 1200px;
   margin: 0 auto;
   padding: 2rem 1rem;
-}
-
-/* Header */
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
-}
-
-h1 {
-  font-size: 2rem;
-  font-weight: 700;
 }
 
 /* Buttons */
@@ -80,23 +68,6 @@ h1 {
 }
 
 /* Form */
-.form-container {
-  margin-bottom: 2rem;
-}
-
-.form-card {
-  background-color: white;
-  border-radius: 8px;
-  box-shadow: var(--card-shadow);
-  padding: 1.5rem;
-}
-
-.form-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-  gap: 1rem;
-}
-
 .form-group {
   margin-bottom: 1rem;
 }
@@ -108,7 +79,8 @@ label {
 }
 
 input,
-textarea {
+textarea,
+select {
   width: 100%;
   padding: 0.75rem;
   border: 1px solid var(--border-color);
@@ -118,10 +90,18 @@ textarea {
 }
 
 input:focus,
-textarea:focus {
+textarea:focus,
+select:focus {
   outline: none;
   border-color: var(--primary-color);
   box-shadow: 0 0 0 2px rgba(0, 112, 243, 0.2);
+}
+
+small {
+  display: block;
+  margin-top: 0.25rem;
+  color: var(--text-light);
+  font-size: 0.8rem;
 }
 
 .form-actions {
@@ -130,13 +110,41 @@ textarea:focus {
   margin-top: 1rem;
 }
 
-/* Trip Cards */
-.trips-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-  gap: 1.5rem;
+/* Loading */
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 200px;
 }
 
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  border-top-color: var(--primary-color);
+  animation: spin 1s ease-in-out infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Error Message */
+.error-message {
+  background-color: #fff5f5;
+  color: var(--error-color);
+  border: 1px solid #fed7d7;
+  border-radius: 4px;
+  padding: 1rem;
+  margin-bottom: 1.5rem;
+  text-align: center;
+}
+
+/* Trip Cards */
 .trip-card {
   background-color: white;
   border-radius: 8px;
@@ -151,19 +159,17 @@ textarea:focus {
 }
 
 .trip-image {
+  position: relative;
   height: 200px;
   overflow: hidden;
+  background-color: #f0f0f0;
 }
 
 .trip-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: var(--transition);
-}
-
-.trip-card:hover .trip-image img {
-  transform: scale(1.05);
+  transition: opacity 0.3s ease;
 }
 
 .trip-content {
@@ -206,29 +212,12 @@ textarea:focus {
   font-size: 0.9rem;
   color: var(--text-light);
   line-height: 1.5;
+  margin-bottom: 1rem;
 }
 
-/* Loading */
-.loading {
+.trip-actions {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 200px;
-}
-
-.spinner {
-  width: 40px;
-  height: 40px;
-  border: 4px solid rgba(0, 0, 0, 0.1);
-  border-radius: 50%;
-  border-top-color: var(--primary-color);
-  animation: spin 1s ease-in-out infinite;
-}
-
-@keyframes spin {
-  to {
-    transform: rotate(360deg);
-  }
+  gap: 0.5rem;
 }
 
 /* Utilities */
@@ -238,14 +227,12 @@ textarea:focus {
 
 /* Responsive */
 @media (max-width: 768px) {
-  header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 1rem;
-  }
-
   .form-grid {
     grid-template-columns: 1fr;
+  }
+
+  .trip-card {
+    max-width: 100%;
   }
 }
 

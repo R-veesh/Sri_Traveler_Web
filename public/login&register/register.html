@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guide Registration - Sri Traveler</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="auth.css" />
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
+    <script src="https://widget.cloudinary.com/v2.0/global/all.js"></script>
+
+  </head>
+  <body>
+    <div class="auth-container">
+      <div class="auth-card">
+        <div class="auth-header">
+          <img
+            src="https://placehold.co/100x100?text=Logo"
+            alt="Sri Traveler Logo"
+            class="auth-logo"
+          />
+          <h1>Guide Registration</h1>
+        </div>
+
+        <div id="errorMessage" class="error-message hidden"></div>
+
+        <form id="registerForm" class="auth-form">
+          <div class="form-group">
+            <label for="fullName">Full Name</label>
+            <input type="text" id="fullName" name="fullName" required />
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              type="password"
+              id="password"
+              name="password"
+              required
+              minlength="6"
+            />
+            <small>Password must be at least 6 characters</small>
+          </div>
+
+          <div class="form-group">
+            <label for="confirmPassword">Confirm Password</label>
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Phone Number</label>
+            <input type="tel" id="phone" name="phone" required />
+          </div>
+
+          <div class="form-group">
+            <label for="location">Location</label>
+            <input type="text" id="location" name="location" required />
+          </div>
+
+          <div class="form-group">
+            <label for="profileImage">Profile Image</label>
+            <input
+              type="file"
+              id="profileImage"
+              name="profileImage"
+              accept="image/*"
+            />
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn primary">Register</button>
+          </div>
+        </form>
+
+        <div class="auth-footer">
+          <p>Already have an account? <a href="login.html">Login</a></p>
+        </div>
+      </div>
+
+      <div class="auth-info">
+        <h2>Join Sri Traveler as a Guide</h2>
+        <p>
+          Register to become a guide, create trips, and connect with travelers
+          from around the world.
+        </p>
+        <div class="auth-features">
+          <div class="feature">
+            <span class="feature-icon">💼</span>
+            <h3>Grow Your Business</h3>
+            <p>Expand your guiding business with our platform</p>
+          </div>
+          <div class="feature">
+            <span class="feature-icon">🌍</span>
+            <h3>Global Reach</h3>
+            <p>Connect with travelers from around the world</p>
+          </div>
+          <div class="feature">
+            <span class="feature-icon">📊</span>
+            <h3>Easy Management</h3>
+            <p>Manage bookings and trips with our dashboard</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="auth.js"></script>
+  </body>
+</html>

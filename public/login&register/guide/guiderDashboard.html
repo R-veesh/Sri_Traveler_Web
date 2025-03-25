@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guide Dashboard - Sri Traveler</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="guideDashboard.css">
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js"></script>
+</head>
+<body>
+  <div class="dashboard-container">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <img src="https://placehold.co/50x50?text=Logo" alt="Sri Traveler Logo" class="sidebar-logo">
+        <h2>Sri Traveler</h2>
+      </div>
+      
+      <nav class="sidebar-nav">
+        <ul>
+          <li class="active"><a href="#" data-section="overview"><span class="icon">📊</span> Overview</a></li>
+          <li><a href="#" data-section="profile"><span class="icon">👤</span> My Profile</a></li>
+          <li><a href="#" data-section="trips"><span class="icon">🗺️</span> My Trips</a></li>
+          <li><a href="#" data-section="bookings"><span class="icon">📅</span> Bookings</a></li>
+          <li><a href="#" data-section="messages"><span class="icon">💬</span> Messages</a></li>
+          <li><a href="#" data-section="settings"><span class="icon">⚙️</span> Settings</a></li>
+        </ul>
+      </nav>
+      
+      <div class="sidebar-footer">
+        <a href="#" id="mobileAppLink" class="mobile-app-link">
+          <span class="icon">📱</span> Open Mobile App
+        </a>
+        <button id="logoutBtn" class="btn secondary logout-btn">
+          <span class="icon">🚪</span> Logout
+        </button>
+      </div>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="dashboard-header">
+        <div class="header-search">
+          <input type="text" placeholder="Search...">
+          <button class="search-btn">🔍</button>
+        </div>
+        
+        <div class="header-actions">
+          <div class="notifications">
+            <button class="notification-btn">🔔</button>
+            <span class="notification-badge">3</span>
+          </div>
+          
+          <div class="user-profile" id="headerUserProfile">
+            <img src="https://placehold.co/40x40?text=User" alt="User" class="user-avatar">
+            <span class="user-name">Loading...</span>
+          </div>
+        </div>
+      </header>
+      
+      <!-- Dashboard Content -->
+      <div class="dashboard-content">
+        <!-- Overview Section -->
+        <section id="overview" class="dashboard-section active">
+          <h1>Dashboard Overview</h1>
+          
+          <div class="stats-container">
+            <div class="stat-card">
+              <div class="stat-icon">👥</div>
+              <div class="stat-info">
+                <h3>Total Travelers</h3>
+                <p class="stat-value">24</p>
+              </div>
+            </div>
+            
+            <div class="stat-card">
+              <div class="stat-icon">🗺️</div>
+              <div class="stat-info">
+                <h3>Active Trips</h3>
+                <p class="stat-value">5</p>
+              </div>
+            </div>
+            
+            <div class="stat-card">
+              <div class="stat-icon">📅</div>
+              <div class="stat-info">
+                <h3>Upcoming Bookings</h3>
+                <p class="stat-value">8</p>
+              </div>
+            </div>
+            
+            <div class="stat-card">
+              <div class="stat-icon">💰</div>
+              <div class="stat-info">
+                <h3>Revenue</h3>
+                <p class="stat-value">₨ 45,000</p>
+              </div>
+            </div>
+          </div>
+          
+          <div class="quick-actions">
+            <h2>Quick Actions</h2>
+            <div class="action-buttons">
+              <button id="addTripBtn" class="btn primary">
+                <span class="icon">➕</span> Add New Trip
+              </button>
+              <button class="btn secondary">
+                <span class="icon">📝</span> View Bookings
+              </button>
+              <button class="btn secondary">
+                <span class="icon">👤</span> Edit Profile
+              </button>
+            </div>
+          </div>
+          
+          <div class="recent-activity">
+            <h2>Recent Activity</h2>
+            <div class="activity-list">
+              <div class="activity-item">
+                <div class="activity-icon">📅</div>
+                <div class="activity-details">
+                  <h4>New Booking</h4>
+                  <p>John Smith booked Negombo Beach Tour</p>
+                  <span class="activity-time">2 hours ago</span>
+                </div>
+              </div>
+              
+              <div class="activity-item">
+                <div class="activity-icon">💬</div>
+                <div class="activity-details">
+                  <h4>New Message</h4>
+                  <p>Sarah Johnson sent you a message</p>
+                  <span class="activity-time">5 hours ago</span>
+                </div>
+              </div>
+              
+              <div class="activity-item">
+                <div class="activity-icon">⭐</div>
+                <div class="activity-details">
+                  <h4>New Review</h4>
+                  <p>You received a 5-star review from David Lee</p>
+                  <span class="activity-time">Yesterday</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <!-- Profile Section -->
+        <section id="profile" class="dashboard-section">
+          <h1>My Profile</h1>
+          
+          <div class="profile-container">
+            <div class="profile-header">
+              <div class="profile-image-container">
+                <img id="profileImage" src="https://placehold.co/150x150?text=Profile" alt="Profile Image" class="profile-image">
+                <button id="changeProfileImageBtn" class="change-image-btn">Change Image</button>
+              </div>
+              
+              <div class="profile-info">
+                <h2 id="profileName">Loading...</h2>
+                <p id="profileLocation"><span class="icon">📍</span> <span id="locationText">Loading...</span></p>
+                <p id="profileEmail"><span class="icon">✉️</span> <span id="emailText">Loading...</span></p>
+                <p id="profilePhone"><span class="icon">📞</span> <span id="phoneText">Loading...</span></p>
+              </div>
+            </div>
+            
+            <div class="profile-actions">
+              <button id="editProfileBtn" class="btn primary">Edit Profile</button>
+            </div>
+            
+            <div id="profileEditForm" class="profile-edit-form hidden">
+              <h3>Edit Profile</h3>
+              <form id="editProfileForm">
+                <div class="form-group">
+                  <label for="editFullName">Full Name</label>
+                  <input type="text" id="editFullName" name="fullName" required>
+                </div>
+                
+                <div class="form-group">
+                  <label for="editPhone">Phone Number</label>
+                  <input type="tel" id="editPhone" name="phone" required>
+                </div>
+                
+                <div class="form-group">
+                  <label for="editLocation">Location</label>
+                  <input type="text" id="editLocation" name="location" required>
+                </div>
+                
+                <div class="form-group">
+                  <label for="editBio">Bio</label>
+                  <textarea id="editBio" name="bio" rows="4"></textarea>
+                </div>
+                
+                <div class="form-group">
+                  <label for="editLanguages">Languages (comma separated)</label>
+                  <input type="text" id="editLanguages" name="languages">
+                </div>
+                
+                <div class="form-group">
+                  <label for="editSpecialties">Specialties (comma separated)</label>
+                  <input type="text" id="editSpecialties" name="specialties">
+                </div>
+                
+                <div class="form-actions">
+                  <button type="submit" class="btn primary">Save Changes</button>
+                  <button type="button" id="cancelEditBtn" class="btn secondary">Cancel</button>
+                </div>
+              </form>
+            </div>
+            
+            <div class="profile-details">
+              <div class="profile-section">
+                <h3>Bio</h3>
+                <p id="profileBio">No bio available. Click 'Edit Profile' to add your bio.</p>
+              </div>
+              
+              <div class="profile-section">
+                <h3>Languages</h3>
+                <div id="profileLanguages" class="profile-tags">
+                  <span class="tag">English</span>
+                  <span class="tag">Sinhala</span>
+                </div>
+              </div>
+              
+              <div class="profile-section">
+                <h3>Specialties</h3>
+                <div id="profileSpecialties" class="profile-tags">
+                  <span class="tag">Beach Tours</span>
+                  <span class="tag">Cultural Tours</span>
+                  <span class="tag">Adventure</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        
+        <!-- Trips Section -->
+        <section id="trips" class="dashboard-section">
+          <div class="section-header">
+            <h1>My Trips</h1>
+            <button id="addNewTripBtn" class="btn primary">
+              <span class="icon">➕</span> Add New Trip
+            </button>
+          </div>
+          
+          <div id="tripsContainer" class="trips-grid">
+            <!-- Trips will be loaded here -->
+            <div class="loading">
+              <div class="spinner"></div>
+            </div>
+          </div>
+          
+          <!-- Add Trip Form -->
+          <div id="addTripForm" class="modal hidden">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h2>Add New Trip</h2>
+                <button class="close-btn" id="closeTripFormBtn">&times;</button>
+              </div>
+              
+              <form id="tripForm">
+                <div class="form-group">
+                  <label for="tripName">Trip Name</label>
+                  <input type="text" id="tripName" name="tripName" required>
+                </div>
+                
+                <div class="form-group">
+                  <label for="tripCode">Trip Code</label>
+                  <input type="text" id="tripCode" name="tripCode" required>
+                </div>
+                
+                <div class="form-group">
+                  <label for="tripPlace">Location</label>
+                  <input type="text" id="tripPlace" name="tripPlace" required>
+                </div>
+                
+                <div class="form-group">
+                  <label for="tripPrice">Price</label>
+                  <input type="text" id="tripPrice" name="tripPrice" required>
+                </div>
+                
+                <div class="form-group">
+                  <label for="tripDuration">Duration (days)</label>
+                  <input type="number" id="tripDuration" name="tripDuration" min="1" required>
+                </div>
+                
+                <div class="form-group">
+                  <label for="tripDescription">Description</label>
+                  <textarea id="tripDescription" name="tripDescription" rows="4" required></textarea>
+                </div>
+                
+                <div class="form-group">
+                  <label for="tripImage">Trip Image</label>
+                  <input type="file" id="tripImage" name="tripImage" accept="image/*">
+                </div>
+                
+                <div class="form-actions">
+                  <button type="submit" class="btn primary">Save Trip</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </section>
+        
+        <!-- Other sections (bookings, messages, settings) would go here -->
+        <section id="bookings" class="dashboard-section">
+          <h1>Bookings</h1>
+          <p>Your bookings will appear here.</p>
+        </section>
+        
+        <section id="messages" class="dashboard-section">
+          <h1>Messages</h1>
+          <p>Your messages will appear here.</p>
+        </section>
+        
+        <section id="settings" class="dashboard-section">
+          <h1>Settings</h1>
+          <p>Account settings will appear here.</p>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <script src="guideDashboard.js"></script>
+</body>
+</html>
+

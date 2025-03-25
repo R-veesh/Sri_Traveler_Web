@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Guide Login - Sri Traveler</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="auth.css" />
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+  </head>
+  <body>
+    <div class="auth-container">
+      <div class="auth-card">
+        <div class="auth-header">
+          <img
+            src="https://placehold.co/100x100?text=Logo"
+            alt="Sri Traveler Logo"
+            class="auth-logo"
+          />
+          <h1>Guide Login</h1>
+        </div>
+
+        <div id="errorMessage" class="error-message hidden"></div>
+
+        <form id="loginForm" class="auth-form">
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" name="email" required />
+          </div>
+
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required />
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="btn primary">Login</button>
+          </div>
+        </form>
+
+        <div class="auth-footer">
+          <p>Don't have an account? <a href="register.html">Register</a></p>
+          <p><a href="#" id="forgotPassword">Forgot Password?</a></p>
+        </div>
+      </div>
+
+      <div class="auth-info">
+        <h2>Welcome to Sri Traveler</h2>
+        <p>
+          Login to manage your guide profile, add trips, and connect with
+          travelers.
+        </p>
+        <div class="auth-features">
+          <div class="feature">
+            <span class="feature-icon">👤</span>
+            <h3>Manage Profile</h3>
+            <p>Update your guide profile and showcase your expertise</p>
+          </div>
+          <div class="feature">
+            <span class="feature-icon">🗺️</span>
+            <h3>Create Trips</h3>
+            <p>Create and manage your guided trips</p>
+          </div>
+          <div class="feature">
+            <span class="feature-icon">📱</span>
+            <h3>Connect</h3>
+            <p>Connect with travelers through our mobile app</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script type="module" src="auth.js"></script>
+  </body>
+</html>
