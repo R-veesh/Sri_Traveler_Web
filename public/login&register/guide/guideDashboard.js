@@ -485,6 +485,7 @@ if (changeProfileImageBtn) {
     fileInput.click();
   });
 }
+
 // Logout
 if (logoutBtn) {
   logoutBtn.addEventListener("click", () => {
