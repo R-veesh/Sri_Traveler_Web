@@ -456,22 +456,16 @@ if (changeProfileImageBtn) {
         const file = e.target.files[0];
 
         try {
-          // Upload image
-          const storageRef = storage.ref();
-          const fileRef = storageRef.child(
-            `profile-images/${auth.currentUser.uid}/${Date.now()}_${file.name}`
-          );
+          // Upload image to Cloudinary
+          const profileImageUrl = await uploadImageToCloudinary(file);
 
-          await fileRef.put(file);
-          const profileImageUrl = await fileRef.getDownloadURL();
-
-          // Update user profile
+          // Update user profile in Firestore
           await db.collection("guides").doc(auth.currentUser.uid).update({
             profileImageUrl,
             updatedAt: firebase.firestore.FieldValue.serverTimestamp(),
           });
 
-          // Update auth profile
+          // Update auth profile (Firebase Authentication)
           await auth.currentUser.updateProfile({
             photoURL: profileImageUrl,
           });
@@ -491,7 +485,6 @@ if (changeProfileImageBtn) {
     fileInput.click();
   });
 }
-
 // Logout
 if (logoutBtn) {
   logoutBtn.addEventListener("click", () => {
