@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Guide Dashboard Sri Traveler</title>
+    <title>Guide Dashboard - Sri Traveler</title>
+    <link rel="stylesheet" href="styles.css" />
     <link rel="stylesheet" href="guiderDashboard.css" />
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
@@ -114,7 +115,7 @@
                 <div class="stat-icon">🗺️</div>
                 <div class="stat-info">
                   <h3>Active Trips</h3>
-                  <p class="stat-value" id="activeTripsCount">0</p>
+                  <p class="stat-value">5</p>
                 </div>
               </div>
 
@@ -133,51 +134,52 @@
                   <p class="stat-value">₨ 45,000</p>
                 </div>
               </div>
+
+              <div class="stat-card">
+                <div class="stat-icon">📅</div>
+                <div class="stat-info">
+                  <h3>Pending Bookings</h3>
+                  <p class="stat-value" id="pendingBookingsCount">0</p>
+                </div>
+              </div>
+
+              <div class="stat-card">
+                <div class="stat-icon">✅</div>
+                <div class="stat-info">
+                  <h3>Confirmed Bookings</h3>
+                  <p class="stat-value" id="confirmedBookingsCount">0</p>
+                </div>
+              </div>
+
+              <div class="stat-card">
+                <div class="stat-icon">📊</div>
+                <div class="stat-info">
+                  <h3>Total Bookings</h3>
+                  <p class="stat-value" id="totalBookingsCount">0</p>
+                </div>
+              </div>
             </div>
 
             <div class="quick-actions">
               <h2>Quick Actions</h2>
               <div class="action-buttons">
-                <button data-section="trips" class="btn primary">  
+                <button id="addTripBtn" class="btn primary">
                   <span class="icon">➕</span> Add New Trip
                 </button>
-                <button class="btn secondary" data-section="bookings">
+                <button class="btn secondary">
                   <span class="icon">📝</span> View Bookings
                 </button>
-                <button class="btn secondary" data-section="profile">
+                <button class="btn secondary">
                   <span class="icon">👤</span> Edit Profile
                 </button>
               </div>
             </div>
 
             <div class="recent-activity">
-              <h2>Recent Activity</h2>
-              <div class="activity-list">
-                <div class="activity-item">
-                  <div class="activity-icon">📅</div>
-                  <div class="activity-details">
-                    <h4>New Booking</h4>
-                    <p>John Smith booked Negombo Beach Tour</p>
-                    <span class="activity-time">2 hours ago</span>
-                  </div>
-                </div>
-
-                <div class="activity-item">
-                  <div class="activity-icon">💬</div>
-                  <div class="activity-details">
-                    <h4>New Message</h4>
-                    <p>Sarah Johnson sent you a message</p>
-                    <span class="activity-time">5 hours ago</span>
-                  </div>
-                </div>
-
-                <div class="activity-item">
-                  <div class="activity-icon">⭐</div>
-                  <div class="activity-details">
-                    <h4>New Review</h4>
-                    <p>You received a 5-star review from David Lee</p>
-                    <span class="activity-time">Yesterday</span>
-                  </div>
+              <h2>Recent Bookings</h2>
+              <div id="dashboardBookings" class="activity-list">
+                <div class="loading">
+                  <div class="spinner"></div>
                 </div>
               </div>
             </div>
@@ -406,10 +408,6 @@
             </div>
             <div id="tripsList" class="trips-container">
               <!-- Trip cards will be dynamically injected here -->
-              <div class="loading-indicator hidden">
-                <div class="spinner"></div>
-                <p>Loading trips...</p>
-              </div>
             </div>
           </section>
 
@@ -432,9 +430,7 @@
       </main>
     </div>
 
-    <!-- Error message container -->
-    <div id="errorMessage" class="error-message hidden"></div>
-
     <script src="guideDashboard.js"></script>
   </body>
 </html>
+

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Requests - Sri Traveler</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="guideDashboard.css">
+    <link rel="stylesheet" href="bookings.css">
+    <link rel="stylesheet" href="notifications.css">
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+</head>
+<body data-user-type="guide">
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="https://placehold.co/50x50?text=Logo" alt="Sri Traveler Logo" class="sidebar-logo">
+                <h2>Sri Traveler</h2>
+            </div>
+
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <a href="guiderDashboard.html" data-section="overview">
+                            <span class="icon">📊</span> Overview
+                        </a>
+                    </li>
+                    <li>
+                        <a href="guide-profile.html" data-section="profile">
+                            <span class="icon">👤</span> My Profile
+                        </a>
+                    </li>
+                    <li>
+                        <a href="guide-trips.html" data-section="trips">
+                            <span class="icon">🗺️</span> My Trips
+                        </a>
+                    </li>
+                    <li class="active">
+                        <a href="guide-bookings.html" data-section="bookings">
+                            <span class="icon">📅</span> Bookings
+                        </a>
+                    </li>
+                    <li>
+                        <a href="guide-messages.html" data-section="messages">
+                            <span class="icon">💬</span> Messages
+                        </a>
+                    </li>
+                    <li>
+                        <a href="guide-settings.html" data-section="settings">
+                            <span class="icon">⚙️</span> Settings
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="#" id="mobileAppLink" class="mobile-app-link">
+                    <span class="icon">📱</span> Open Mobile App
+                </a>
+                <button id="logoutBtn" class="btn secondary logout-btn">
+                    <span class="icon">🚪</span> Logout
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="dashboard-header">
+                <div class="header-search">
+                    <input type="text" placeholder="Search bookings...">
+                    <button class="search-btn">🔍</button>
+                </div>
+
+                <div class="header-actions">
+                    <div class="notifications">
+                        <button class="notification-btn">🔔</button>
+                        <span class="notification-badge hidden">0</span>
+                        <div id="notificationsDropdown" class="notifications-dropdown">
+                            <div class="notifications-header">
+                                <h3>Notifications</h3>
+                                <button id="markAllReadBtn" class="mark-all-read-btn">Mark all as read</button>
+                            </div>
+                            <ul id="notificationsList" class="notifications-list">
+                                <li class="no-notifications">Loading notifications...</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="user-profile" id="headerUserProfile">
+                        <img src="https://placehold.co/40x40?text=User" alt="User" class="user-avatar">
+                        <span class="user-name">Loading...</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="dashboard-content">
+                <section id="bookings" class="dashboard-section active">
+                    <div class="section-header">
+                        <h1>Booking Requests</h1>
+                        <div class="filter-options">
+                            <select id="bookingStatusFilter">
+                                <option value="all">All Bookings</option>
+                                <option value="pending">Pending</option>
+                                <option value="confirmed">Confirmed</option>
+                                <option value="completed">Completed</option>
+                                <option value="cancelled">Cancelled</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Error Message -->
+                    <div id="errorMessage" class="error-message hidden"></div>
+
+                    <!-- Loading Indicator -->
+                    <div id="loadingIndicator" class="loading hidden">
+                        <div class="spinner"></div>
+                    </div>
+
+                    <!-- Bookings Container -->
+                    <div id="bookingsContainer" class="bookings-container">
+                        <div class="loading">
+                            <div class="spinner"></div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <script src="notifications.js"></script>
+    <script src="bookings.js"></script>
+    <script>
+        // Filter bookings by status
+        document.addEventListener('DOMContentLoaded', function() {
+            const statusFilter = document.getElementById('bookingStatusFilter');
+            
+            if (statusFilter) {
+                statusFilter.addEventListener('change', function() {
+                    const status = this.value;
+                    const bookingCards = document.querySelectorAll('.booking-card');
+                    
+                    bookingCards.forEach(card => {
+                        const cardStatus = card.querySelector('.booking-status').textContent.toLowerCase();
+                        
+                        if (status === 'all' || cardStatus === status) {
+                            card.style.display = 'block';
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+                });
+            }
+        });
+    </script>
+</body>
+</html>
+

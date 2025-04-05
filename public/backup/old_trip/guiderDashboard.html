@@ -3,8 +3,9 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Guide Dashboard Sri Traveler</title>
-    <link rel="stylesheet" href="guiderDashboard.css" />
+    <title>Guide Dashboard - Sri Traveler</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="guideDashboard.css" />
     <!-- Firebase SDK -->
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
@@ -114,7 +115,7 @@
                 <div class="stat-icon">🗺️</div>
                 <div class="stat-info">
                   <h3>Active Trips</h3>
-                  <p class="stat-value" id="activeTripsCount">0</p>
+                  <p class="stat-value">5</p>
                 </div>
               </div>
 
@@ -138,13 +139,13 @@
             <div class="quick-actions">
               <h2>Quick Actions</h2>
               <div class="action-buttons">
-                <button data-section="trips" class="btn primary">  
+                <button id="addTripBtn" class="btn primary">
                   <span class="icon">➕</span> Add New Trip
                 </button>
-                <button class="btn secondary" data-section="bookings">
+                <button class="btn secondary">
                   <span class="icon">📝</span> View Bookings
                 </button>
-                <button class="btn secondary" data-section="profile">
+                <button class="btn secondary">
                   <span class="icon">👤</span> Edit Profile
                 </button>
               </div>
@@ -406,10 +407,6 @@
             </div>
             <div id="tripsList" class="trips-container">
               <!-- Trip cards will be dynamically injected here -->
-              <div class="loading-indicator hidden">
-                <div class="spinner"></div>
-                <p>Loading trips...</p>
-              </div>
             </div>
           </section>
 
@@ -431,9 +428,6 @@
         </div>
       </main>
     </div>
-
-    <!-- Error message container -->
-    <div id="errorMessage" class="error-message hidden"></div>
 
     <script src="guideDashboard.js"></script>
   </body>
