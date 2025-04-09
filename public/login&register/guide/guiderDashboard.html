@@ -80,8 +80,17 @@
 
           <div class="header-actions">
             <div class="notifications">
-              <button class="notification-btn">🔔</button>
-              <span class="notification-badge">3</span>
+              <button class="notification-btn" id="notificationBtn">🔔</button>
+              <span class="notification-badge" id="notificationBadge">0</span>
+              <div class="notification-dropdown hidden" id="notificationDropdown">
+                <div class="notification-header">
+                  <h3>Notifications</h3>
+                  <button class="mark-all-read" id="markAllReadBtn">Mark all as read</button>
+                </div>
+                <div class="notification-list" id="notificationList">
+                  <!-- Notifications will be loaded here -->
+                </div>
+              </div>
             </div>
 
             <div class="user-profile" id="headerUserProfile">
@@ -106,7 +115,7 @@
                 <div class="stat-icon">👥</div>
                 <div class="stat-info">
                   <h3>Total Travelers</h3>
-                  <p class="stat-value">24</p>
+                  <p class="stat-value" id="totalTravelersCount">0</p>
                 </div>
               </div>
 
@@ -122,7 +131,7 @@
                 <div class="stat-icon">📅</div>
                 <div class="stat-info">
                   <h3>Upcoming Bookings</h3>
-                  <p class="stat-value">8</p>
+                  <p class="stat-value" id="upcomingBookingsCount">0</p>
                 </div>
               </div>
 
@@ -130,7 +139,7 @@
                 <div class="stat-icon">💰</div>
                 <div class="stat-info">
                   <h3>Revenue</h3>
-                  <p class="stat-value">₨ 45,000</p>
+                  <p class="stat-value" id="totalRevenue">₨ 0</p>
                 </div>
               </div>
             </div>
@@ -138,7 +147,7 @@
             <div class="quick-actions">
               <h2>Quick Actions</h2>
               <div class="action-buttons">
-                <button data-section="trips" class="btn primary">  
+                <button data-section="trips" class="btn primary">
                   <span class="icon">➕</span> Add New Trip
                 </button>
                 <button class="btn secondary" data-section="bookings">
@@ -152,32 +161,11 @@
 
             <div class="recent-activity">
               <h2>Recent Activity</h2>
-              <div class="activity-list">
-                <div class="activity-item">
-                  <div class="activity-icon">📅</div>
-                  <div class="activity-details">
-                    <h4>New Booking</h4>
-                    <p>John Smith booked Negombo Beach Tour</p>
-                    <span class="activity-time">2 hours ago</span>
-                  </div>
-                </div>
-
-                <div class="activity-item">
-                  <div class="activity-icon">💬</div>
-                  <div class="activity-details">
-                    <h4>New Message</h4>
-                    <p>Sarah Johnson sent you a message</p>
-                    <span class="activity-time">5 hours ago</span>
-                  </div>
-                </div>
-
-                <div class="activity-item">
-                  <div class="activity-icon">⭐</div>
-                  <div class="activity-details">
-                    <h4>New Review</h4>
-                    <p>You received a 5-star review from David Lee</p>
-                    <span class="activity-time">Yesterday</span>
-                  </div>
+              <div class="activity-list" id="recentActivityList">
+                <!-- Recent activities will be loaded here -->
+                <div class="loading-indicator">
+                  <div class="spinner"></div>
+                  <p>Loading activities...</p>
                 </div>
               </div>
             </div>
@@ -301,17 +289,14 @@
                 <div class="profile-section">
                   <h3>Languages</h3>
                   <div id="profileLanguages" class="profile-tags">
-                    <span class="tag">English</span>
-                    <span class="tag">Sinhala</span>
+                    <!-- Languages will be loaded here -->
                   </div>
                 </div>
 
                 <div class="profile-section">
                   <h3>Specialties</h3>
                   <div id="profileSpecialties" class="profile-tags">
-                    <span class="tag">Beach Tours</span>
-                    <span class="tag">Cultural Tours</span>
-                    <span class="tag">Adventure</span>
+                    <!-- Specialties will be loaded here -->
                   </div>
                 </div>
               </div>
@@ -406,27 +391,191 @@
             </div>
             <div id="tripsList" class="trips-container">
               <!-- Trip cards will be dynamically injected here -->
-              <div class="loading-indicator hidden">
+              <div class="loading-indicator">
                 <div class="spinner"></div>
                 <p>Loading trips...</p>
               </div>
             </div>
           </section>
 
-          <!-- Other sections (bookings, messages, settings) would go here -->
+          <!-- Bookings Section -->
           <section id="bookings" class="dashboard-section">
-            <h1>Bookings</h1>
-            <p>Your bookings will appear here.</p>
+            <div class="section-header">
+              <h1>Booking Requests</h1>
+              <div class="filter-options">
+                <select id="bookingStatusFilter">
+                  <option value="all">All Bookings</option>
+                  <option value="pending">Pending</option>
+                  <option value="confirmed">Confirmed</option>
+                  <option value="completed">Completed</option>
+                  <option value="cancelled">Cancelled</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Error Message -->
+            <div id="bookingErrorMessage" class="error-message hidden"></div>
+
+            <!-- Loading Indicator -->
+            <div id="bookingLoadingIndicator" class="loading-indicator">
+              <div class="spinner"></div>
+              <p>Loading bookings...</p>
+            </div>
+
+            <!-- Bookings Container -->
+            <div id="bookingsContainer" class="bookings-container">
+              <!-- Booking cards will be dynamically injected here -->
+            </div>
+            
+            <!-- Booking Details Modal -->
+            <div id="bookingDetailsModal" class="modal hidden">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2>Booking Details</h2>
+                  <button class="close-btn" id="closeBookingDetailsBtn">&times;</button>
+                </div>
+                <div id="bookingDetailsContent">
+                  <!-- Booking details will be loaded here -->
+                </div>
+              </div>
+            </div>
           </section>
 
+          <!-- Messages Section -->
           <section id="messages" class="dashboard-section">
             <h1>Messages</h1>
-            <p>Your messages will appear here.</p>
+            
+            <div class="messages-container">
+              <div class="messages-sidebar">
+                <div class="messages-search">
+                  <input type="text" id="messageSearch" placeholder="Search conversations..." />
+                </div>
+                <div class="conversation-list" id="conversationList">
+                  <!-- Conversations will be loaded here -->
+                  <div class="loading-indicator">
+                    <div class="spinner"></div>
+                    <p>Loading conversations...</p>
+                  </div>
+                </div>
+              </div>
+              
+              <div class="messages-content">
+                <div class="messages-header" id="messagesHeader">
+                  <div class="contact-info hidden">
+                    <img src="https://placehold.co/40x40?text=User" alt="Contact" class="contact-avatar" />
+                    <div class="contact-details">
+                      <h3 class="contact-name">Select a conversation</h3>
+                      <p class="contact-status">No active conversation</p>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="messages-body" id="messagesBody">
+                  <div class="no-conversation-selected">
+                    <p>Select a conversation to start messaging</p>
+                  </div>
+                </div>
+                
+                <div class="messages-input hidden" id="messagesInput">
+                  <textarea id="messageText" placeholder="Type your message..."></textarea>
+                  <button id="sendMessageBtn" class="btn primary">Send</button>
+                </div>
+              </div>
+            </div>
           </section>
 
+          <!-- Settings Section -->
           <section id="settings" class="dashboard-section">
             <h1>Settings</h1>
-            <p>Account settings will appear here.</p>
+            
+            <div class="settings-container">
+              <div class="settings-section">
+                <h2>Account Settings</h2>
+                
+                <div class="settings-card">
+                  <h3>Email Notifications</h3>
+                  <div class="settings-option">
+                    <label class="toggle-switch">
+                      <input type="checkbox" id="emailNotificationsToggle" checked>
+                      <span class="toggle-slider"></span>
+                    </label>
+                    <div class="settings-option-text">
+                      <p>Receive email notifications</p>
+                      <span>Get notified about new bookings, messages, and reviews</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="settings-card">
+                  <h3>Privacy Settings</h3>
+                  <div class="settings-option">
+                    <label class="toggle-switch">
+                      <input type="checkbox" id="profileVisibilityToggle" checked>
+                      <span class="toggle-slider"></span>
+                    </label>
+                    <div class="settings-option-text">
+                      <p>Profile Visibility</p>
+                      <span>Make your profile visible to travelers</span>
+                    </div>
+                  </div>
+                </div>
+                
+                <div class="settings-card">
+                  <h3>Security</h3>
+                  <button id="changePasswordBtn" class="btn secondary">Change Password</button>
+                </div>
+              </div>
+              
+              <div class="settings-section">
+                <h2>Preferences</h2>
+                
+                <div class="settings-card">
+                  <h3>Language</h3>
+                  <select id="languagePreference">
+                    <option value="en">English</option>
+                    <option value="si">Sinhala</option>
+                    <option value="ta">Tamil</option>
+                  </select>
+                </div>
+                
+                <div class="settings-card">
+                  <h3>Currency</h3>
+                  <select id="currencyPreference">
+                    <option value="LKR">Sri Lankan Rupee (LKR)</option>
+                    <option value="USD">US Dollar (USD)</option>
+                    <option value="EUR">Euro (EUR)</option>
+                    <option value="GBP">British Pound (GBP)</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+            
+            <!-- Change Password Modal -->
+            <div id="changePasswordModal" class="modal hidden">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2>Change Password</h2>
+                  <button class="close-btn" id="closePasswordModalBtn">&times;</button>
+                </div>
+                <form id="changePasswordForm">
+                  <div class="form-group">
+                    <label for="currentPassword">Current Password</label>
+                    <input type="password" id="currentPassword" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="newPassword">New Password</label>
+                    <input type="password" id="newPassword" required>
+                  </div>
+                  <div class="form-group">
+                    <label for="confirmPassword">Confirm New Password</label>
+                    <input type="password" id="confirmPassword" required>
+                  </div>
+                  <div class="form-actions">
+                    <button type="submit" class="btn primary">Update Password</button>
+                  </div>
+                </form>
+              </div>
+            </div>
           </section>
         </div>
       </main>

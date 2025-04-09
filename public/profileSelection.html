@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sri Traveller</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body, html {
+      height: 100%;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      height: 100vh;
+      background-image: url('9arch.jpg'); /* Replace with your image path */
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background-color: rgba(0, 0, 0, 0.8);
+      color: white;
+      padding: 1rem;
+      text-align: left;
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+    .main {
+      flex: 1;
+      display: flex;
+    }
+    .half {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 2rem;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .left:hover {
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+    .right:hover {
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      Sri Traveller
+    </header>
+    <div class="main">
+      <div class="half left" onclick="window.location.href='login&register/login.html'">
+        Click Here To Be A Traveller
+      </div>
+      <div class="half right" onclick="window.location.href='login&register/login.html'">
+        Click Here To Be A Guide
+      </div>
+    </div>
+  </div>
+</body>
+</html>
